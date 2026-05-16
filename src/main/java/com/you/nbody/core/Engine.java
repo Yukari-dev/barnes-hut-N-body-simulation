@@ -1,10 +1,16 @@
 package com.you.nbody.core;
 
+import com.you.nbody.renderer.*;
+
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import org.joml.Vector3f;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Engine{
     private static long window;
@@ -31,15 +37,32 @@ public class Engine{
 
         GL.createCapabilities();
         glEnable(GL_DEPTH_TEST);
-        glfwSwapInterval(1);
+        glfwSwapInterval(0);
 
         glViewport(0, 0, width, height);
     }
 
     public static void Run(){
+        Shader shader = new Shader("vertexShader.glsl", "fragmentShader.glsl");
+        int maxParticles = 10000000;
+        Random random = new Random();
+        ParticleSystem particleSystem = new ParticleSystem(maxParticles);
+        Camera.SetPosition(new Vector3f(0, 0, -100));
+        float[] positions = new float[maxParticles * 3];
+        float posRange = 100;
+            
+        for (int i = 0; i < maxParticles; i++) {
+            positions[i * 3 + 0] = random.nextFloat(-posRange, posRange);
+            positions[i * 3 + 1] = random.nextFloat(-posRange, posRange);
+            positions[i * 3 + 2] = 100;
+        }
+        particleSystem.UpdatePositions(positions);
+
         while(!glfwWindowShouldClose(window)){
             Update();
             Render();
+
+            particleSystem.Draw(shader);
             
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -65,4 +88,11 @@ public class Engine{
         return window;
     }
 
+    public static int GetWidth(){
+        return width;
+    }
+
+    public static int GetHeight(){
+        return height;
+    }
 }

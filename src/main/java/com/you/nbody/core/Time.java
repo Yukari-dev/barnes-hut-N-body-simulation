@@ -9,6 +9,8 @@ public class Time{
     private static double frameCount;
     private static double framesPerSecond;
     private static double updateTimer;
+    private static double fixedDeltaTime = 0.016;
+    private static double framesPerSecondUpdateTime = 1.0f;
 
     public static void Update(){
         currentTime = glfwGetTime();
@@ -16,7 +18,7 @@ public class Time{
         lastFrame = currentTime;
         updateTimer += deltaTime;
         frameCount++;
-        if(updateTimer >= 1.0f){
+        if(updateTimer >= framesPerSecondUpdateTime){
             framesPerSecond = frameCount/updateTimer;
             updateTimer = 0f;
             frameCount = 0;
@@ -29,5 +31,8 @@ public class Time{
         return deltaTime;
     }
 
+    public static double GetFixedDeltaTime(){
+        return fixedDeltaTime;
+    }
 }
 

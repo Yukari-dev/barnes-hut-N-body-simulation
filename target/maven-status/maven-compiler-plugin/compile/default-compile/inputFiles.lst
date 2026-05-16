@@ -1,5 +1,8 @@
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/Main.java
+/home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/core/Camera.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/core/Engine.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/core/Input.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/core/Time.java
+/home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/Particle.java
+/home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/ParticleSystem.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/Shader.java
