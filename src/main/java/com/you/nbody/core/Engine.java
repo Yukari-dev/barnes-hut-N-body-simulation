@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL32.*;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class Engine{
     private static long window;
     private static int width;
     private static int height;
+    private static double accumulator = 0;
+    private static double fixedStep   = 0.016;
 
     public static void Init(int Iwidth, int Iheight){
         width = Iwidth;
@@ -43,6 +46,7 @@ public class Engine{
         });
 
         GL.createCapabilities();
+        glEnable(GL_PROGRAM_POINT_SIZE);
         glEnable(GL_DEPTH_TEST);
         glfwSwapInterval(0);
 
@@ -52,20 +56,21 @@ public class Engine{
     public static void Run(){
         Shader shader = new Shader("vertexShader.glsl", "fragmentShader.glsl");
 
-        int maxParticles = 20000;
+        int maxParticles = 40000;
         Random random = new Random();
-        ParticleSystem particleSystem = new ParticleSystem(maxParticles);
+        ParticleSystem particleSystem = new ParticleSystem(maxParticles, width, height);
         Camera.SetPosition(new Vector3f(0, 600, 0));
         float[] positions = new float[maxParticles * 3];
         float[] velocities = new float[maxParticles * 3];
         float[] masses = new float[maxParticles];
         float[] colors = new float[maxParticles * 3];
+        float[] starColors = StarColors.Generate(maxParticles, random);
+        particleSystem.UploadStarColors(starColors);
 
-        float maxRange = 0;
-
-        // Formations.TwoGalaxies(positions, velocities, masses, maxParticles, random);
+        Formations.TwoGalaxies(positions, velocities, masses, maxParticles, random);
+        // Formations.OneGalaxy(positions, velocities, masses, maxParticles, random);
         // Formations.TwoSpheresHeadOn(positions, velocities, masses, maxParticles, random);
-        Formations.SphereIntoGalaxy(positions, velocities, masses, maxParticles, random);
+        // Formations.SphereIntoGalaxy(positions, velocities, masses, maxParticles, random);
         // Formations.RingAndSphere(positions, velocities, masses, maxParticles, random);
         // Formations.ThreeGalaxies(positions, velocities, masses, maxParticles, random);
         // Formations.ColdCollapse(positions, velocities, masses, maxParticles, random);

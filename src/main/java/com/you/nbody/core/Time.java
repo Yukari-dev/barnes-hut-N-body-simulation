@@ -9,7 +9,7 @@ public class Time{
     private static double frameCount;
     private static double framesPerSecond;
     private static double updateTimer;
-    private static double fixedDeltaTime = 0.016;
+    private static double fixedDeltaTime = 0.0016;
     private static double framesPerSecondUpdateTime = 1.0f;
 
     public static void Update(){

@@ -3,11 +3,15 @@
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/core/Engine.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/core/Input.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/core/Time.java
+/home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/physics/FlatOctree.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/physics/Formations.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/physics/Octree.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/physics/OctreePool.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/physics/PhysicsWorld.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/BoundsRenderer.java
+/home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/ComputeShader.java
+/home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/GPUParticleSystem.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/Particle.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/ParticleSystem.java
 /home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/Shader.java
+/home/yukari/programming/JAVA/barnes-hut-n-body-simulation/src/main/java/com/you/nbody/renderer/StarColors.java

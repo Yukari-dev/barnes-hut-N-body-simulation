@@ -12,7 +12,7 @@ public class Octree {
     int particleIdx = -1;
     final Octree[] children = new Octree[8];
 
-    private static final float THETA = 0.9f;
+    public float theta = 0.9f;
     private static final int   MAX_DEPTH = 64;
 
     private BoundsRenderer boundsRenderer;
@@ -118,7 +118,7 @@ public class Octree {
             return;
         }
 
-        if ((halfSize * 2.0f) / dist < THETA) {
+        if ((halfSize * 2.0f) / dist < theta) {
             float soft = distSq + softening * softening;
             float inv  = 1.0f / (soft * (float) Math.sqrt(soft));
             float f    = totalMass * inv;

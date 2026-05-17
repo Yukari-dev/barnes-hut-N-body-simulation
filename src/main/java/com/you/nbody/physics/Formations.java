@@ -5,7 +5,7 @@ import java.util.Random;
 public class Formations {
 
     private static final float G            = 1.0f;
-    private static final float CENTRAL_MASS = 1e6f;
+    private static final float CENTRAL_MASS = 1e5f;
 
 
     private static void spawnSphere(
@@ -89,6 +89,20 @@ public class Formations {
                 1f, 3f, random);
     }
 
+
+    public static void OneGalaxy(
+            float[] positions, float[] velocities, float[] masses,
+            int maxParticles, Random random) {
+
+        spawnGalaxy(positions, velocities, masses,
+                0, 1, maxParticles,
+                0, 0, 0,
+                10f, 100f, 8f,
+                0, 0, 0,
+                random);
+
+    }
+
     public static void TwoGalaxies(
             float[] positions, float[] velocities, float[] masses,
             int maxParticles, Random random) {
@@ -118,7 +132,7 @@ public class Formations {
 
         int galaxyCount = (int)(maxParticles * 0.7f);
         int sphereCount = maxParticles - galaxyCount;
-        float speed     = 50f;
+        float speed     = 40f;
 
         spawnGalaxy(positions, velocities, masses,
                 0, 1, galaxyCount,

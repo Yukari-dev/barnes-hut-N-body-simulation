@@ -70,6 +70,21 @@ public class Shader{
         }
     }
 
+    public void SetBool(String name, boolean value){
+        int loc = GetLocation(name);
+        glUniform1i(loc, value ? 1 : 0);
+    }
+
+    public void SetInt(String name, int value){
+        int loc = GetLocation(name);
+        glUniform1i(loc, value);
+    }
+
+    public void SetFloat(String name, float value){
+        int loc = GetLocation(name);
+        glUniform1f(loc, value);
+    }
+
     public int GetLocation(String name){
         return glGetUniformLocation(programID, name);
     }
