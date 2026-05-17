@@ -1,8 +1,13 @@
-com/you/nbody/core/Camera.class
 com/you/nbody/renderer/ParticleSystem.class
-com/you/nbody/core/Time.class
+com/you/nbody/physics/OctreePool.class
 com/you/nbody/Main.class
+com/you/nbody/core/Camera.class
+com/you/nbody/renderer/BoundsRenderer.class
+com/you/nbody/physics/PhysicsWorld.class
+com/you/nbody/physics/Octree.class
+com/you/nbody/core/Time.class
 com/you/nbody/renderer/Particle.class
 com/you/nbody/renderer/Shader.class
+com/you/nbody/physics/Formations.class
 com/you/nbody/core/Input.class
 com/you/nbody/core/Engine.class

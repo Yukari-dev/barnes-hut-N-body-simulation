@@ -15,5 +15,9 @@ public class Input{
         return glfwGetKey(Engine.GetWindow(), key) == GLFW_PRESS;
     }
 
+    public static boolean IsMouseButtonPressed(int key){
+        return glfwGetMouseButton(Engine.GetWindow(), key) == GLFW_PRESS;
+    }
+
 }
 

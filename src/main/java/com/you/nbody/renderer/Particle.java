@@ -10,7 +10,8 @@ import com.you.nbody.core.Camera;
 
 public class Particle{
     private int vao;
-    private Vector3f position;
+    public Vector3f position;
+    public float mass;
 
     public Particle(Vector3f position){
         this.position = position;

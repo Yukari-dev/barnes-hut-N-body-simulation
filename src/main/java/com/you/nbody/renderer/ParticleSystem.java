@@ -10,7 +10,7 @@ import com.you.nbody.core.Camera;
 
 public class ParticleSystem{
     private int maxParticles;
-    private int vao, vbo;
+    private int vao, vbo, colorVbo;
 
     public ParticleSystem(int maxParticles){
         this.maxParticles = maxParticles;
@@ -19,12 +19,17 @@ public class ParticleSystem{
 
         vbo = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
         long totalBufferSizeInBytes = (long) maxParticles * 3 * Float.BYTES;
         glBufferData(GL_ARRAY_BUFFER, totalBufferSizeInBytes, GL_DYNAMIC_DRAW);
-
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * Float.BYTES, 0);
         glEnableVertexAttribArray(0);
+
+        colorVbo = glGenBuffers();
+        glBindBuffer(GL_ARRAY_BUFFER, colorVbo);
+        glBufferData(GL_ARRAY_BUFFER, totalBufferSizeInBytes, GL_DYNAMIC_DRAW);
+        glVertexAttribPointer(1, 3, GL_FLOAT, false, 3 * Float.BYTES, 0);
+        glEnableVertexAttribArray(1);
+
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
@@ -35,6 +40,18 @@ public class ParticleSystem{
         
         FloatBuffer buffer = MemoryUtil.memAllocFloat(positions.length);
         buffer.put(positions).flip();
+
+        glBufferSubData(GL_ARRAY_BUFFER, 0, buffer);
+
+        MemoryUtil.memFree(buffer);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+
+    public void UpdateColors(float[] colors){
+        glBindBuffer(GL_ARRAY_BUFFER, colorVbo);
+        
+        FloatBuffer buffer = MemoryUtil.memAllocFloat(colors.length);
+        buffer.put(colors).flip();
 
         glBufferSubData(GL_ARRAY_BUFFER, 0, buffer);
 

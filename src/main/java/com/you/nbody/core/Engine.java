@@ -1,6 +1,7 @@
 package com.you.nbody.core;
 
 import com.you.nbody.renderer.*;
+import com.you.nbody.physics.*;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
@@ -25,6 +26,7 @@ public class Engine{
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
         window = glfwCreateWindow(width, height, "opengl-app", 0, 0);
 
         glfwMakeContextCurrent(window);
@@ -33,6 +35,11 @@ public class Engine{
             glViewport(0, 0, newWidth, newHeight);
             width = newWidth;
             height = newHeight;
+        });
+
+        glfwSetScrollCallback(window, (win, xoffset, yoffset) -> {
+            float zoomSpeed = 100.0f;
+            Camera.Zoom((float) -yoffset * zoomSpeed);
         });
 
         GL.createCapabilities();
@@ -44,44 +51,52 @@ public class Engine{
 
     public static void Run(){
         Shader shader = new Shader("vertexShader.glsl", "fragmentShader.glsl");
-        int maxParticles = 10000000;
+
+        int maxParticles = 20000;
         Random random = new Random();
         ParticleSystem particleSystem = new ParticleSystem(maxParticles);
-        Camera.SetPosition(new Vector3f(0, 0, -100));
+        Camera.SetPosition(new Vector3f(0, 600, 0));
         float[] positions = new float[maxParticles * 3];
-        float posRange = 100;
-            
-        for (int i = 0; i < maxParticles; i++) {
-            positions[i * 3 + 0] = random.nextFloat(-posRange, posRange);
-            positions[i * 3 + 1] = random.nextFloat(-posRange, posRange);
-            positions[i * 3 + 2] = 100;
-        }
-        particleSystem.UpdatePositions(positions);
+        float[] velocities = new float[maxParticles * 3];
+        float[] masses = new float[maxParticles];
+        float[] colors = new float[maxParticles * 3];
+
+        float maxRange = 0;
+
+        // Formations.TwoGalaxies(positions, velocities, masses, maxParticles, random);
+        // Formations.TwoSpheresHeadOn(positions, velocities, masses, maxParticles, random);
+        Formations.SphereIntoGalaxy(positions, velocities, masses, maxParticles, random);
+        // Formations.RingAndSphere(positions, velocities, masses, maxParticles, random);
+        // Formations.ThreeGalaxies(positions, velocities, masses, maxParticles, random);
+        // Formations.ColdCollapse(positions, velocities, masses, maxParticles, random);
+        // Formations.Slingshot(positions, velocities, masses, maxParticles, random);
+
+        PhysicsWorld physicsWorld = new PhysicsWorld(maxParticles, positions, velocities, masses, colors);
 
         while(!glfwWindowShouldClose(window)){
-            Update();
-            Render();
+            Time.Update();
+            Input.Update();
+            Camera.HandleMouseInput();
+
+            glClearColor(0f, 0f, 0f, 1f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            physicsWorld.Update(particleSystem);
+            // physicsWorld.Draw();
 
             particleSystem.Draw(shader);
-            
+
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
+        physicsWorld.Cleanup();
     }
 
-    private static void Render(){
-        glClearColor(0f, 0f, 0f, 1f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
-
-    private static void Update(){
-        Time.Update();
-        Input.Update();
-    }
 
     public static void Exit(){
         glfwDestroyWindow(window);
         glfwTerminate();
+        System.exit(0);
     }
 
     public static long GetWindow(){

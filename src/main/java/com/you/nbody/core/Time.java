@@ -23,7 +23,6 @@ public class Time{
             updateTimer = 0f;
             frameCount = 0;
         }
-
         System.out.printf("deltaTime: %f, FPS: %f\n", deltaTime, framesPerSecond);
     }
 

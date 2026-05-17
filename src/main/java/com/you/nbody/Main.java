@@ -3,7 +3,7 @@ import com.you.nbody.core.Engine;
 
 public class Main {
     public static void main(String[] args) {
-        Engine.Init(800, 600);
+        Engine.Init(1368, 723);
         Engine.Run();
         Engine.Exit();
     }
