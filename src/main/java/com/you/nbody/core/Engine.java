@@ -56,7 +56,7 @@ public class Engine{
     public static void Run(){
         Shader shader = new Shader("vertexShader.glsl", "fragmentShader.glsl");
 
-        int maxParticles = 40000;
+        int maxParticles = 20000;
         Random random = new Random();
         ParticleSystem particleSystem = new ParticleSystem(maxParticles, width, height);
         Camera.SetPosition(new Vector3f(0, 600, 0));
@@ -67,13 +67,17 @@ public class Engine{
         float[] starColors = StarColors.Generate(maxParticles, random);
         particleSystem.UploadStarColors(starColors);
 
-        Formations.TwoGalaxies(positions, velocities, masses, maxParticles, random);
+        // Formations.TwoGalaxies(positions, velocities, masses, maxParticles, random);
         // Formations.OneGalaxy(positions, velocities, masses, maxParticles, random);
         // Formations.TwoSpheresHeadOn(positions, velocities, masses, maxParticles, random);
         // Formations.SphereIntoGalaxy(positions, velocities, masses, maxParticles, random);
         // Formations.RingAndSphere(positions, velocities, masses, maxParticles, random);
         // Formations.ThreeGalaxies(positions, velocities, masses, maxParticles, random);
         // Formations.ColdCollapse(positions, velocities, masses, maxParticles, random);
+        Formations.CosmicNebula(positions, velocities, masses, maxParticles, random);
+        // Formations.AccretionJet(positions, velocities, masses, maxParticles, random);
+        // Formations.BinaryStream(positions, velocities, masses, maxParticles, random);
+        // Formations.GlobularCore(positions, velocities, masses, maxParticles, random);
         // Formations.Slingshot(positions, velocities, masses, maxParticles, random);
 
         PhysicsWorld physicsWorld = new PhysicsWorld(maxParticles, positions, velocities, masses, colors);
@@ -87,7 +91,6 @@ public class Engine{
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             physicsWorld.Update(particleSystem);
-            // physicsWorld.Draw();
 
             particleSystem.Draw(shader);
 

@@ -11,7 +11,7 @@ public class PhysicsWorld {
     private final float[] colors;
     private final int maxParticles;
 
-    private final float softening = 9.0f;
+    private final float softening = 8.0f;
     private final FlatOctree octree;
     private final ForkJoinPool threadPool;
     private final float[] accelerations;
@@ -46,7 +46,7 @@ public class PhysicsWorld {
         try {
             threadPool.submit(() ->
                 java.util.stream.IntStream.range(0, maxParticles).parallel().forEach(i -> {
-                    float[] localAcc = new float[3]; // Clean local array stack instantiation per particle thread
+                    float[] localAcc = new float[3];
                     octree.computeAcceleration(i, positions, softening, localAcc);
                     accelerations[i * 3]     = localAcc[0];
                     accelerations[i * 3 + 1] = localAcc[1];
@@ -72,17 +72,17 @@ public class PhysicsWorld {
                     float speed = (float) Math.sqrt(vx * vx + vy * vy + vz * vz);
                     float ratio = Math.min(1.0f, speed / 5.0f);
 
-                    if (ratio < 0.5f) {
-                        float t = ratio * 2.0f;
-                        colors[idx]     = 0.0f;
-                        colors[idx + 1] = t;
-                        colors[idx + 2] = 1.0f - t;
-                    } else {
-                        float t = (ratio - 0.5f) * 2.0f;
-                        colors[idx]     = t;
-                        colors[idx + 1] = 1.0f - t;
-                        colors[idx + 2] = 0.0f;
-                    }
+                    // if (ratio < 0.5f) {
+                    //     float t = ratio * 2.0f;
+                    //     colors[idx]     = 0.0f;
+                    //     colors[idx + 1] = t;
+                    //     colors[idx + 2] = 1.0f - t;
+                    // } else {
+                    //     float t = (ratio - 0.5f) * 2.0f;
+                    //     colors[idx]     = t;
+                    //     colors[idx + 1] = 1.0f - t;
+                    //     colors[idx + 2] = 0.0f;
+                    // }
                 })
             ).get();
 
@@ -91,7 +91,7 @@ public class PhysicsWorld {
         }
 
         particleSystem.UpdatePositions(positions);
-        particleSystem.UpdateColors(colors);
+        // particleSystem.UpdateColors(colors);
     }
 
     public void Cleanup() {

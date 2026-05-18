@@ -16,7 +16,7 @@ void main() {
     float t = smoothstep(0.0, 1.0, depth);
 
     vec3 depthTint = mix(vec3(1.0, 0.8, 0.5), vec3(0.3, 0.5, 1.0), t);
-    vec3 finalColor = fragColor * depthTint;
+    vec3 finalColor = fragColor;
 
     outColor = vec4(finalColor, alpha);
 }

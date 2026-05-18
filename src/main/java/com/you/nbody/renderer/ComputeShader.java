@@ -51,9 +51,7 @@ public class ComputeShader {
 
     public void SetInt(String name, int value) {
         int location = glGetUniformLocation(programID, name);
-        if (location == -1) {
-            System.err.println("Warning: Uniform '" + name + "' not found or optimized out in compute shader!");
-        } else {
+        if (location != -1) {
             glUniform1i(location, value);
         }
     }

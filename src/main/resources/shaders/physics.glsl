@@ -35,11 +35,9 @@ void main() {
         }
     }
 
-    // Apply physics updates
     vel += acceleration * fixedDt;
     pos += vel * fixedDt;
 
-    // Write calculations back to GPU memory structures
     positions[gIdx].xyz = pos;
     velocities[gIdx].xyz = vel;
 }

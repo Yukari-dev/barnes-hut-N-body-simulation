@@ -1,6 +1,7 @@
 package com.you.nbody.physics;
 
 import java.util.Arrays;
+import com.you.nbody.core.Time;
 
 public class FlatOctree {
     private static final int MAX_DEPTH = 64;
