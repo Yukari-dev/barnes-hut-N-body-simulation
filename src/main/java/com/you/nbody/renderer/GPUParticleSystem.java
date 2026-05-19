@@ -3,9 +3,7 @@ package com.you.nbody.renderer;
 import static org.lwjgl.opengl.GL46.*;
 import org.lwjgl.BufferUtils;
 import java.nio.FloatBuffer;
-
 import com.you.nbody.core.Camera;
-import com.you.nbody.renderer.Shader;
 import org.joml.Matrix4f;
 
 public class GPUParticleSystem {
@@ -23,27 +21,29 @@ public class GPUParticleSystem {
         for (int i = 0; i < numParticles; i++) {
             posBuffer.put(initialPositions[i * 3]).put(initialPositions[i * 3 + 1]).put(initialPositions[i * 3 + 2]).put(initialMasses[i]);
             velBuffer.put(initialVelocities[i * 3]).put(initialVelocities[i * 3 + 1]).put(initialVelocities[i * 3 + 2]).put(0.0f);
-            colBuffer.put(0.0f).put(0.0f).put(1.0f).put(1.0f);
+            colBuffer.put(1.0f).put(1.0f).put(1.0f).put(1.0f);
         }
-        posBuffer.flip(); velBuffer.flip(); colBuffer.flip();
+        posBuffer.flip();
+        velBuffer.flip();
+        colBuffer.flip();
 
         positionSSBO = glGenBuffers();
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, positionSSBO);
-        glBufferData(GL_SHADER_STORAGE_BUFFER, posBuffer, GL_DYNAMIC_DRAW);
+        glBufferData(GL_SHADER_STORAGE_BUFFER, posBuffer, GL_STATIC_DRAW);
 
         velocitySSBO = glGenBuffers();
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, velocitySSBO);
-        glBufferData(GL_SHADER_STORAGE_BUFFER, velBuffer, GL_DYNAMIC_DRAW);
+        glBufferData(GL_SHADER_STORAGE_BUFFER, velBuffer, GL_STATIC_DRAW);
 
         colorSSBO = glGenBuffers();
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, colorSSBO);
-        glBufferData(GL_SHADER_STORAGE_BUFFER, colBuffer, GL_DYNAMIC_DRAW);
+        glBufferData(GL_SHADER_STORAGE_BUFFER, colBuffer, GL_STATIC_DRAW);
 
         vao = glGenVertexArrays();
         glBindVertexArray(vao);
 
         glBindBuffer(GL_ARRAY_BUFFER, positionSSBO);
-        glVertexAttribPointer(0, 4, GL_FLOAT, false, 4 * Float.BYTES, 0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, false, 4 * Float.BYTES, 0);
         glEnableVertexAttribArray(0);
 
         glBindBuffer(GL_ARRAY_BUFFER, colorSSBO);

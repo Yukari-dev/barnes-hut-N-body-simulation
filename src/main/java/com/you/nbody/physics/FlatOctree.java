@@ -1,7 +1,6 @@
 package com.you.nbody.physics;
 
 import java.util.Arrays;
-import com.you.nbody.core.Time;
 
 public class FlatOctree {
     private static final int MAX_DEPTH = 64;
@@ -20,10 +19,33 @@ public class FlatOctree {
     public int[] children; 
 
     private int nodeCount = 0;
-    private final int capacity;
+    private int capacity;
     public float theta = 1.5f;
 
     public FlatOctree(int maxParticles) {
+        allocateBuffers(maxParticles);
+    }
+
+    public void resize(int newMaxParticles) {
+        allocateBuffers(newMaxParticles);
+        clear();
+    }
+
+    public void clear() {
+        nodeCount = 0;
+        Arrays.fill(cx, 0);
+        Arrays.fill(cy, 0);
+        Arrays.fill(cz, 0);
+        Arrays.fill(halfSize, 0);
+        Arrays.fill(comX, 0);
+        Arrays.fill(comY, 0);
+        Arrays.fill(comZ, 0);
+        Arrays.fill(totalMass, 0);
+        Arrays.fill(particleIdx, -1);
+        Arrays.fill(children, -1);
+    }
+
+    private void allocateBuffers(int maxParticles) {
         this.capacity = maxParticles * 4;
         
         this.cx = new float[capacity];

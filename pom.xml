@@ -14,6 +14,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <lwjgl.version>3.3.3</lwjgl.version>
         <joml.version>1.10.5</joml.version>
+        <imgui.version>1.86.11</imgui.version>
     </properties>
 
     <profiles>
@@ -45,7 +46,6 @@
 
     <dependencies>
 
-        <!-- LWJGL -->
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
@@ -61,7 +61,6 @@
             <artifactId>lwjgl-opengl</artifactId>
         </dependency>
 
-        <!-- Native libs -->
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
@@ -80,13 +79,36 @@
             <classifier>${lwjgl.natives}</classifier>
         </dependency>
 
-        <!-- Math -->
         <dependency>
             <groupId>org.joml</groupId>
             <artifactId>joml</artifactId>
             <version>${joml.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.github.spair</groupId>
+            <artifactId>imgui-java-binding</artifactId>
+            <version>${imgui.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>io.github.spair</groupId>
+            <artifactId>imgui-java-lwjgl3</artifactId>
+            <version>${imgui.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>io.github.spair</groupId>
+            <artifactId>imgui-java-natives-linux</artifactId>
+            <version>${imgui.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv-platform</artifactId>
+            <version>1.5.10</version>
+        </dependency>
     </dependencies>
 
 </project>

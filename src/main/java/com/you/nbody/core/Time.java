@@ -23,7 +23,7 @@ public class Time{
             updateTimer = 0f;
             frameCount = 0;
         }
-        System.out.printf("deltaTime: %f, FPS: %f\n", deltaTime, framesPerSecond);
+        // System.out.printf("deltaTime: %f, FPS: %f\n", deltaTime, framesPerSecond);
     }
 
     public static double GetDeltaTime(){
@@ -32,6 +32,10 @@ public class Time{
 
     public static double GetFixedDeltaTime(){
         return fixedDeltaTime;
+    }
+
+    public static double GetFramesPerSecond(){
+        return framesPerSecond;
     }
 }
 

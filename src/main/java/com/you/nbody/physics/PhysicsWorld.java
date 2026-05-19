@@ -5,16 +5,16 @@ import com.you.nbody.renderer.ParticleSystem;
 import java.util.concurrent.*;
 
 public class PhysicsWorld {
-    private final float[] positions;
-    private final float[] velocities;
-    private final float[] masses;
-    private final float[] colors;
-    private final int maxParticles;
+    private float[] positions;
+    private float[] velocities;
+    private float[] masses;
+    private float[] colors; 
+    private int maxParticles;
 
-    private final float softening = 8.0f;
-    private final FlatOctree octree;
-    private final ForkJoinPool threadPool;
-    private final float[] accelerations;
+    private float softening = 8.0f;
+    public FlatOctree octree;
+    private ForkJoinPool threadPool;
+    private float[] accelerations;
 
     public PhysicsWorld(int maxParticles, float[] positions, float[] velocities, float[] masses, float[] colors) {
         this.maxParticles = maxParticles;
@@ -23,13 +23,13 @@ public class PhysicsWorld {
         this.masses       = masses;
         this.colors       = colors;
         this.octree       = new FlatOctree(maxParticles);
-        this.accelerations = new float[maxParticles * 3];
+        this.accelerations= new float[maxParticles * 3];
         
         this.threadPool   = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
     }
 
-    public void Update(ParticleSystem particleSystem) {
-        float dt = (float) Math.min(Time.GetDeltaTime(), 0.033);
+    public void Update(ParticleSystem particleSystem, float timeScale) {
+        float dt = (float) Math.min(Time.GetDeltaTime(), 0.033) * timeScale;
 
         float maxRange = 0;
         for (int i = 0; i < maxParticles; i++) {
@@ -66,23 +66,9 @@ public class PhysicsWorld {
                     positions[idx + 1] += velocities[idx + 1] * dt;
                     positions[idx + 2] += velocities[idx + 2] * dt;
 
-                    float vx = velocities[idx];
-                    float vy = velocities[idx + 1];
-                    float vz = velocities[idx + 2];
-                    float speed = (float) Math.sqrt(vx * vx + vy * vy + vz * vz);
-                    float ratio = Math.min(1.0f, speed / 5.0f);
-
-                    // if (ratio < 0.5f) {
-                    //     float t = ratio * 2.0f;
-                    //     colors[idx]     = 0.0f;
-                    //     colors[idx + 1] = t;
-                    //     colors[idx + 2] = 1.0f - t;
-                    // } else {
-                    //     float t = (ratio - 0.5f) * 2.0f;
-                    //     colors[idx]     = t;
-                    //     colors[idx + 1] = 1.0f - t;
-                    //     colors[idx + 2] = 0.0f;
-                    // }
+                    colors[idx]     = velocities[idx];
+                    colors[idx + 1] = velocities[idx + 1];
+                    colors[idx + 2] = velocities[idx + 2];
                 })
             ).get();
 
@@ -91,10 +77,35 @@ public class PhysicsWorld {
         }
 
         particleSystem.UpdatePositions(positions);
-        // particleSystem.UpdateColors(colors);
+        particleSystem.UpdateColors(colors);
     }
 
     public void Cleanup() {
         threadPool.shutdownNow();
+    }
+
+    public void ResetData(int maxParticles, float[] positions, float[] velocities, float[] masses, float[] colors) {
+        this.maxParticles = maxParticles;
+
+        if (this.positions == null || this.positions.length != positions.length) {
+            this.positions = new float[positions.length];
+        }
+
+        if (this.velocities == null || this.velocities.length != velocities.length) {
+            this.velocities = new float[velocities.length];
+        }
+
+        if (this.masses == null || this.masses.length != masses.length) {
+            this.masses = new float[masses.length];
+        }
+
+        if (this.colors == null || this.colors.length != colors.length) {
+            this.colors = new float[colors.length];
+        }
+
+        System.arraycopy(positions, 0, this.positions, 0, positions.length);
+        System.arraycopy(velocities, 0, this.velocities, 0, velocities.length);
+        System.arraycopy(masses, 0, this.masses, 0, masses.length);
+        System.arraycopy(colors, 0, this.colors, 0, colors.length);
     }
 }

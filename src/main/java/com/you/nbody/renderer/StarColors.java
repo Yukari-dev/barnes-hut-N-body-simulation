@@ -8,14 +8,13 @@ import java.util.Random;
 public class StarColors {
 
     public enum Palette {
-        BLUE_STEEL,
-        FROSTBITE,
-        MUTED_COSMOS,      
-        NEBULA_SHADOW,
-        VOID_OBSIDIAN,
-        SOLAR_ECLIPSE,
-        CHROME_QUARTZ,
-        DEEP_ALGAE
+        BLUE_STEEL, FROSTBITE, MUTED_COSMOS, NEBULA_SHADOW, VOID_OBSIDIAN,
+        SOLAR_ECLIPSE, CHROME_QUARTZ, DEEP_ALGAE, MAGMA_CORE, EMERALD_ISLES,
+        AMETHYST_VOID, SUNSET_DRIFT, TOXIC_WASTE, CANDY_CRUSH, ROYAL_PURPLE,
+        GOLDEN_HOUR, FIRE_AND_ICE, OCEAN_ABYSS, NEON_CYBER, BLOOD_MOON,
+        SPRING_MEADOW, AUTUMN_LEAVES, WINTER_CHILL, GALAXY_EDGE,
+        VAPORWAVE, ACID_RAIN, PURE_GOLD, THE_MATRIX, DEEP_SPACE_X,
+        LAVA_LAMP, ELECTRIC_BLUE, PSYCHEDELIC, RADIOACTIVE, OVERLOAD
     }
 
     public static float[] Generate(int count, Random random) {
@@ -26,152 +25,51 @@ public class StarColors {
 
     public static float[] Generate(int count, Random random, Palette palette) {
         float[] colors = new float[count * 3];
-
         for (int i = 0; i < count; i++) {
             float roll = random.nextFloat();
             float r = 0, g = 0, b = 0;
 
             switch (palette) {
-                case BLUE_STEEL:
-                    if (roll < 0.55f) {
-                        r = 0.20f + random.nextFloat() * 0.05f;
-                        g = 0.28f + random.nextFloat() * 0.05f;
-                        b = 0.40f + random.nextFloat() * 0.08f;
-                    } else if (roll < 0.85f) {
-                        r = 0.30f + random.nextFloat() * 0.08f;
-                        g = 0.38f + random.nextFloat() * 0.08f;
-                        b = 0.52f + random.nextFloat() * 0.08f;
-                    } else if (roll < 0.98f) {
-                        r = 0.45f + random.nextFloat() * 0.05f;
-                        g = 0.55f + random.nextFloat() * 0.05f;
-                        b = 0.70f + random.nextFloat() * 0.05f;
-                    } else {
-                        r = 0.80f + random.nextFloat() * 0.05f;
-                        g = 0.90f + random.nextFloat() * 0.05f;
-                        b = 1.00f;
-                    }
-                    break;
-
-                case FROSTBITE:
-                    if (roll < 0.60f) {
-                        r = 0.10f + random.nextFloat() * 0.05f;
-                        g = 0.15f + random.nextFloat() * 0.05f;
-                        b = 0.30f + random.nextFloat() * 0.10f;
-                    } else if (roll < 0.90f) {
-                        r = 0.15f + random.nextFloat() * 0.05f;
-                        g = 0.35f + random.nextFloat() * 0.10f;
-                        b = 0.60f + random.nextFloat() * 0.10f;
-                    } else {
-                        r = 0.40f + random.nextFloat() * 0.10f;
-                        g = 0.75f + random.nextFloat() * 0.15f;
-                        b = 1.00f;
-                    }
-                    break;
-
-                case MUTED_COSMOS:
-                    if (roll < 0.60f) { 
-                        r = 0.35f + random.nextFloat() * 0.10f; 
-                        g = 0.45f + random.nextFloat() * 0.10f;
-                        b = 0.55f + random.nextFloat() * 0.10f; 
-                    } else if (roll < 0.85f) { 
-                        float slate = 0.40f + random.nextFloat() * 0.15f;
-                        r = slate;
-                        g = slate * 1.05f; 
-                        b = slate * 1.10f;
-                    } else { 
-                        r = 0.85f + random.nextFloat() * 0.15f; 
-                        g = 0.05f + random.nextFloat() * 0.05f; 
-                        b = 0.10f + random.nextFloat() * 0.08f; 
-                    }
-                    break;
-
-                case NEBULA_SHADOW:
-                    if (roll < 0.55f) { 
-                        r = 0.30f + random.nextFloat() * 0.10f;
-                        g = 0.35f + random.nextFloat() * 0.10f;
-                        b = 0.45f + random.nextFloat() * 0.10f;
-                    } else if (roll < 0.80f) { 
-                        r = 0.38f + random.nextFloat() * 0.08f;
-                        g = 0.35f + random.nextFloat() * 0.08f;
-                        b = 0.48f + random.nextFloat() * 0.08f;
-                    } else { 
-                        r = 0.90f + random.nextFloat() * 0.10f;
-                        g = 0.00f + random.nextFloat() * 0.04f;
-                        b = 0.15f + random.nextFloat() * 0.05f; 
-                    }
-                    break;
-
-                case VOID_OBSIDIAN:
-                    if (roll < 0.70f) {
-                        r = 0.08f + random.nextFloat() * 0.04f;
-                        g = 0.09f + random.nextFloat() * 0.04f;
-                        b = 0.12f + random.nextFloat() * 0.06f;
-                    } else if (roll < 0.95f) {
-                        r = 0.15f + random.nextFloat() * 0.05f;
-                        g = 0.18f + random.nextFloat() * 0.05f;
-                        b = 0.25f + random.nextFloat() * 0.05f;
-                    } else {
-                        r = 0.55f + random.nextFloat() * 0.10f;
-                        g = 0.60f + random.nextFloat() * 0.10f;
-                        b = 0.75f + random.nextFloat() * 0.10f;
-                    }
-                    break;
-
-                case SOLAR_ECLIPSE:
-                    if (roll < 0.65f) {
-                        r = 0.22f + random.nextFloat() * 0.06f;
-                        g = 0.25f + random.nextFloat() * 0.06f;
-                        b = 0.28f + random.nextFloat() * 0.06f;
-                    } else if (roll < 0.95f) {
-                        r = 0.45f + random.nextFloat() * 0.10f;
-                        g = 0.40f + random.nextFloat() * 0.08f;
-                        b = 0.30f + random.nextFloat() * 0.05f;
-                    } else {
-                        r = 0.85f + random.nextFloat() * 0.05f;
-                        g = 0.75f + random.nextFloat() * 0.05f;
-                        b = 0.55f + random.nextFloat() * 0.05f;
-                    }
-                    break;
-
-                case CHROME_QUARTZ:
-                    if (roll < 0.50f) {
-                        float v = 0.30f + random.nextFloat() * 0.15f;
-                        r = g = b = v;
-                    } else if (roll < 0.90f) {
-                        float v = 0.50f + random.nextFloat() * 0.20f;
-                        r = g = b = v;
-                    } else {
-                        r = 0.90f + random.nextFloat() * 0.10f;
-                        g = 0.92f + random.nextFloat() * 0.08f;
-                        b = 0.98f + random.nextFloat() * 0.02f;
-                    }
-                    break;
-
-                case DEEP_ALGAE:
-                    if (roll < 0.60f) {
-                        r = 0.18f + random.nextFloat() * 0.05f;
-                        g = 0.25f + random.nextFloat() * 0.05f;
-                        b = 0.22f + random.nextFloat() * 0.05f;
-                    } else if (roll < 0.92f) {
-                        r = 0.25f + random.nextFloat() * 0.08f;
-                        g = 0.40f + random.nextFloat() * 0.08f;
-                        b = 0.32f + random.nextFloat() * 0.08f;
-                    } else {
-                        r = 0.50f + random.nextFloat() * 0.10f;
-                        g = 0.75f + random.nextFloat() * 0.10f;
-                        b = 0.60f + random.nextFloat() * 0.10f;
-                    }
-                    break;
+                case BLUE_STEEL -> { r = 0.2f + roll * 0.1f; g = 0.3f + roll * 0.1f; b = 0.5f + roll * 0.2f; }
+                case FROSTBITE -> { r = 0.1f + roll * 0.1f; g = 0.2f + roll * 0.2f; b = 0.7f + roll * 0.3f; }
+                case MUTED_COSMOS -> { r = 0.3f + roll * 0.2f; g = 0.3f + roll * 0.2f; b = 0.4f + roll * 0.2f; }
+                case NEBULA_SHADOW -> { r = 0.4f + roll * 0.3f; g = 0.1f + roll * 0.2f; b = 0.5f + roll * 0.3f; }
+                case VOID_OBSIDIAN -> { r = 0.05f + roll * 0.05f; g = 0.05f + roll * 0.05f; b = 0.1f + roll * 0.1f; }
+                case SOLAR_ECLIPSE -> { r = 0.8f + roll * 0.2f; g = 0.5f + roll * 0.2f; b = 0.2f + roll * 0.1f; }
+                case CHROME_QUARTZ -> { float v = 0.7f + roll * 0.3f; r = g = b = v; }
+                case DEEP_ALGAE -> { r = 0.1f + roll * 0.1f; g = 0.4f + roll * 0.2f; b = 0.2f + roll * 0.1f; }
+                case MAGMA_CORE -> { r = 0.9f + roll * 0.1f; g = 0.2f + roll * 0.1f; b = 0.0f + roll * 0.05f; }
+                case EMERALD_ISLES -> { r = 0.0f + roll * 0.1f; g = 0.7f + roll * 0.3f; b = 0.3f + roll * 0.2f; }
+                case AMETHYST_VOID -> { r = 0.6f + roll * 0.2f; g = 0.2f + roll * 0.1f; b = 0.8f + roll * 0.2f; }
+                case SUNSET_DRIFT -> { r = 0.9f + roll * 0.1f; g = 0.3f + roll * 0.2f; b = 0.5f + roll * 0.2f; }
+                case TOXIC_WASTE -> { r = 0.4f + roll * 0.2f; g = 0.9f + roll * 0.1f; b = 0.1f + roll * 0.1f; }
+                case CANDY_CRUSH -> { r = random.nextFloat(); g = random.nextFloat(); b = random.nextFloat(); }
+                case ROYAL_PURPLE -> { r = 0.5f + roll * 0.1f; g = 0.0f + roll * 0.1f; b = 0.7f + roll * 0.3f; }
+                case GOLDEN_HOUR -> { r = 0.9f + roll * 0.1f; g = 0.7f + roll * 0.2f; b = 0.1f + roll * 0.1f; }
+                case FIRE_AND_ICE -> { if(roll < 0.5f) {r=1f; g=0.2f; b=0f;} else {r=0f; g=0.5f; b=1f;} }
+                case OCEAN_ABYSS -> { r = 0.0f + roll * 0.1f; g = 0.2f + roll * 0.2f; b = 0.6f + roll * 0.4f; }
+                case NEON_CYBER -> { r = roll > 0.5f ? 1.0f : 0.0f; g = 1.0f; b = 1.0f; }
+                case BLOOD_MOON -> { r = 0.6f + roll * 0.4f; g = 0.0f; b = 0.0f; }
+                case SPRING_MEADOW -> { r = 0.4f + roll * 0.3f; g = 0.9f + roll * 0.1f; b = 0.3f + roll * 0.3f; }
+                case AUTUMN_LEAVES -> { r = 0.8f + roll * 0.2f; g = 0.4f + roll * 0.2f; b = 0.1f + roll * 0.1f; }
+                case WINTER_CHILL -> { r = 0.8f + roll * 0.2f; g = 0.9f + roll * 0.1f; b = 1.0f; }
+                case GALAXY_EDGE -> { r = 0.1f + roll * 0.2f; g = 0.1f + roll * 0.2f; b = 0.7f + roll * 0.3f; }
+                case VAPORWAVE -> { r = 0.9f; g = 0.2f + roll * 0.3f; b = 0.9f; }
+                case ACID_RAIN -> { r = 0.1f; g = 1.0f; b = 0.1f + roll * 0.8f; }
+                case PURE_GOLD -> { r = 1.0f; g = 0.84f; b = 0.2f + roll * 0.2f; }
+                case THE_MATRIX -> { r = 0.0f; g = 0.6f + roll * 0.4f; b = 0.0f; }
+                case DEEP_SPACE_X -> { r = 0.0f; g = 0.0f; b = 0.2f + roll * 0.8f; }
+                case LAVA_LAMP -> { r = 1.0f; g = roll * 0.5f; b = 0.0f; }
+                case ELECTRIC_BLUE -> { r = 0.0f; g = 0.8f + roll * 0.2f; b = 1.0f; }
+                case PSYCHEDELIC -> { r = random.nextFloat(); g = random.nextFloat(); b = random.nextFloat(); }
+                case RADIOACTIVE -> { r = 0.7f + roll * 0.3f; g = 1.0f; b = 0.0f; }
+                case OVERLOAD -> { r = roll > 0.66f ? 1.0f : 0.0f; g = roll > 0.33f && roll <= 0.66f ? 1.0f : 0.0f; b = roll <= 0.33f ? 1.0f : 0.0f; }
             }
-
-            colors[i * 3]     = clamp(r);
+            colors[i * 3] = clamp(r);
             colors[i * 3 + 1] = clamp(g);
             colors[i * 3 + 2] = clamp(b);
         }
         return colors;
     }
-
-    private static float clamp(float v) {
-        return Math.max(0f, Math.min(1f, v));
-    }
+    private static float clamp(float v) { return Math.max(0f, Math.min(1f, v)); }
 }

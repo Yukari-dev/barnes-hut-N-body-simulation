@@ -1,22 +1,22 @@
 #version 330 core
 in vec3 fragColor;
+in float particleSpeed;
 out vec4 outColor;
 
-uniform mat4 view;
-uniform float nearDepth = 0.01; 
-uniform float farDepth = 10000; 
-
 void main() {
+    float speedFactor = clamp(particleSpeed * 0.1, 0.0, 0.8);
+    
     vec2 coord = gl_PointCoord - vec2(0.5);
-    float dist = length(coord);
-    if (dist > 0.5) discard;
-    float alpha = 1.0 - smoothstep(0.0, 0.5, dist);
+    coord.x /= (1.0 + speedFactor); 
+    coord.y *= (1.0 - speedFactor * 0.5);
 
-    float depth = gl_FragCoord.z;
-    float t = smoothstep(0.0, 1.0, depth);
+    float dist = dot(coord, coord);
+    if (dist > 0.25) discard;
+    
+    float glow = exp(-10.0 * dist);
+    
+    vec3 hotColor = mix(fragColor, vec3(0.7, 0.9, 1.0), clamp(particleSpeed * 0.3, 0.0, 1.0));
+    vec3 finalColor = hotColor * glow * 2.0;
 
-    vec3 depthTint = mix(vec3(1.0, 0.8, 0.5), vec3(0.3, 0.5, 1.0), t);
-    vec3 finalColor = fragColor;
-
-    outColor = vec4(finalColor, alpha);
+    outColor = vec4(finalColor, glow);
 }
